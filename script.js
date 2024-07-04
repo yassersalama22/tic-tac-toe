@@ -149,3 +149,71 @@ function checkDraw(board) {
     }
     return board.flat().every(cell => cell !== '');
 }
+
+// Function to render the game board
+function renderBoard() {
+    const gameBoard = document.getElementById('game-board');
+    gameBoard.innerHTML = '';
+    for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.dataset.row = row;
+            cell.dataset.col = col;
+            cell.addEventListener('click',()=> handleCellClick(row,col));
+            cell.textContent = board[row][col];
+            gameBoard.appendChild(cell);
+        }
+    }
+}
+
+// Function to handle cell click
+function handleCellClick(row, col) {
+    const currentMark = currentPlayer === 'player1' ? 'X' : 'O';
+
+    // Check if the game is ended (win or draw) to reset the board and start new game
+    if(document.getElementById('game-status').textContent !== ''){
+        resetGame();
+        return;
+    }
+       
+
+    if(makeMove(board,row, col, currentMark)){
+
+        renderBoard();
+
+        if(checkWin(board, currentMark)){
+            document.getElementById('game-status').textContent = `${currentPlayer} wins!`;
+        }
+        else if(checkDraw(board)){
+            document.getElementById('game-status').textContent = 'It\'s draw!';
+        }
+        else {
+            currentPlayer = currentPlayer === 'player1' ? 'player2' : 'player1';
+            document.getElementById('player1-status').classList.toggle('current-player', currentPlayer === 'player1');
+            document.getElementById('player2-status').classList.toggle('current-player', currentPlayer === 'player2');
+            document.getElementById('player1-status').textContent = currentPlayer === 'player1' ? 'Current Player' : 'Waiting...';
+            document.getElementById('player2-status').textContent = currentPlayer === 'player2' ? 'Current Player' : 'Waiting...';
+        }
+        
+    }
+}
+
+// Function to reset the game.
+function resetGame(){
+    board = [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
+    ];
+    currentPlayer = 'player1';
+    document.getElementById('player1-status').classList.add('current-player');
+    document.getElementById('player2-status').classList.remove('current-player');
+    document.getElementById('player1-status').textContent = 'Current Player';
+    document.getElementById('player2-status').textContent = 'Waiting...';
+    document.getElementById('game-status').textContent = '';
+    renderBoard();
+}
+
+// Initial render of the board
+renderBoard();

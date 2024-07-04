@@ -16,7 +16,11 @@
             <p id="player1-status" class="current-player">Current Player</p>
             <button class="update-button" onclick="openDialog('player1')">Update Name</button>
         </div>
-        <div class="box">Game Board</div>
+        <div class="box">
+            <div id="game-board"></div>
+            <button class="update-button" onclick="resetGame()">Reset Game</button>
+            <p id="game-status"></p>
+        </div>
         <div class="box" id="player2-box">
             <p id="player2-name">Player 2: <span>O</span></p>
             <p id="player2-status">Waiting</p>
