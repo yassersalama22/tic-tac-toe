@@ -7,6 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Tic Tac Toe</h1>
+    </header>
+    <div class="container">
+        <div class="box" id="player1-box">
+            <p id="player1-name">Player 1: <span>X</span></p>
+            <p id="player1-status" class="current-player">Current Player</p>
+            <button class="update-button" onclick="openDialog('player1')">Update Name</button>
+        </div>
+        <div class="box">Game Board</div>
+        <div class="box" id="player2-box">
+            <p id="player2-name">Player 2: <span>O</span></p>
+            <p id="player2-status">Waiting</p>
+            <button class="update-button" onclick="openDialog('player2')">Update Name</button>
+        </div>
+    </div>
+
+    <!-- Dialog for updating player name -->
+    <div id="update-dialog" style="display:none;">
+        <h2>Update Player Name</h2>
+        <input type="text" id="new-player-name" placeholder="Enter new name">
+        <button class="update-button" onclick="updatePlayerName()">Save</button>
+        <button class="update-button" onclick="closeDialog()">Cancel</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

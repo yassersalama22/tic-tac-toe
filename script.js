@@ -51,6 +51,35 @@ let board = [
     ['', '', '']
 ];
 
+let currentPlayer = 'player1';
+
+// Function to open the dialog to update player name
+function openDialog(player) {
+    document.getElementById('update-dialog').style.display = 'block';
+    document.getElementById('update-dialog').setAttribute('data-player', player);
+}
+
+// Function to close the dialog
+function closeDialog() {
+    document.getElementById('update-dialog').style.display = 'none';
+}
+
+// Function to update the player name
+function updatePlayerName() {
+    const player = document.getElementById('update-dialog').getAttribute('data-player');
+    const newName = document.getElementById('new-player-name').value;
+
+    if (!isEmptyOrNull(newName)) {
+        document.getElementById(`${player}-name`).innerHTML = `${newName}: <span>${player === 'player1' ? 'X' : 'O'}</span>`;
+        closeDialog();
+        if (player === 'player1') {
+            player1.updateName(newName);
+        } else {
+            player2.updateName(newName);
+        }
+    }
+}
+
 // Function to make a move
 function makeMove(board, row, cell, mark) {
     // Check if the board is valid
